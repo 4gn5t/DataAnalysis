@@ -1,0 +1,9 @@
+Alpha: 10.0
+Linear approximation:
+a1 = 8.1643
+a2 = -1.9030
+
+Quadratic approximation:
+a1 = 28.7549
+a2 = -1.9030
+a3 = 0.0205

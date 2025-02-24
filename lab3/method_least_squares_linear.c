@@ -9,6 +9,29 @@ struct LinearCoefficients {
     double b;  
 };
 
+typedef struct {
+    double mae;
+    double mse;
+} Metrics;
+
+Metrics calculate_metrics(double* x_values, double* y_values, struct LinearCoefficients coeffs, int count) {
+    Metrics metrics = {0.0, 0.0};
+    
+    for (int i = 0; i < count; i++) {
+        double predicted = coeffs.a * x_values[i] + coeffs.b;
+        double error = predicted - y_values[i];
+        
+        metrics.mae += fabs(error);
+        metrics.mse += error * error;
+    }
+    
+    metrics.mae /= count;
+    metrics.mse /= count;
+    
+    return metrics;
+}
+
+
 struct LinearCoefficients method_least_squares_linear(double* x_values, double* y_values, int count) {
     struct LinearCoefficients coeffs;
     double sum_x = 0.0;
@@ -100,21 +123,7 @@ int main() {
                                                                         0.01, 50000, 1e-12);
     
     FILE *least_squares_file = fopen("files/Least_squares_linear.txt", "w");
-    if (least_squares_file == NULL) {
-        perror("Error opening least squares file");
-        free(x_values_noise);
-        free(y_values_noise);
-        return 1;
-    }
-
     FILE *gradient_file = fopen("files/Least_squares_gradient.txt", "w");
-    if (gradient_file == NULL) {
-        perror("Error opening gradient file");
-        fclose(least_squares_file);
-        free(x_values_noise);
-        free(y_values_noise);
-        return 1;
-    }
 
     for (double x = -5.0; x < max_value; x += step) {
         double y_ls = lin_coeffs.a * x + lin_coeffs.b;
@@ -123,6 +132,21 @@ int main() {
         fprintf(least_squares_file, "%.2f %.4f\n", x, y_ls);
         fprintf(gradient_file, "%.2f %.4f\n", x, y_grad);
     }
+
+    Metrics ls_metrics = calculate_metrics(x_values_noise, y_values_noise, lin_coeffs, count);
+    Metrics grad_metrics = calculate_metrics(x_values_noise, y_values_noise, grad_coeffs, count);
+
+    printf("\nLeast Squares Method Results:\n");
+    printf("Coefficients: a = %.4f, b = %.4f\n", lin_coeffs.a, lin_coeffs.b);
+    printf("Mean Absolute Error (MAE): %.4f\n", ls_metrics.mae);
+    printf("Mean Squared Error (MSE): %.4f\n", ls_metrics.mse);
+    printf("Root Mean Squared Error (RMSE): %.4f\n\n", sqrt(ls_metrics.mse));
+
+    printf("Gradient Descent Method Results:\n");
+    printf("Coefficients: a = %.4f, b = %.4f\n", grad_coeffs.a, grad_coeffs.b);
+    printf("Mean Absolute Error (MAE): %.4f\n", grad_metrics.mae);
+    printf("Mean Squared Error (MSE): %.4f\n", grad_metrics.mse);
+    printf("Root Mean Squared Error (RMSE): %.4f\n", sqrt(grad_metrics.mse));
 
     fclose(least_squares_file);
     fclose(gradient_file);

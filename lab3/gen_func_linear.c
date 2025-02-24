@@ -3,6 +3,9 @@
 #include <math.h>
 #include "files.h"
 
+#define MEAN 0.0
+#define SIGMA 0.2
+
 double Fun_2(double x) {
     return 8 - 2*x;
 }
@@ -25,7 +28,7 @@ double Fun_with_Gausse_noise(double x, double alfa) {
 int main(){
     const double step = 0.1;
     const double max_value = 5.0;
-    double alfa = 10.0;
+    double alfa = 100.0;
     int count = 0;
     for (double x = -5.0; x < max_value; x += step) {
         count++;

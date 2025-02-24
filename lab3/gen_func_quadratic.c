@@ -29,7 +29,7 @@ int main() {
     const double step = 0.1;
     const double min_value = -5.0;
     const double max_value = 5.0;
-    double alfa = 10.0;
+    double alfa = 100.0;
 
     int count = (int)((max_value - min_value) / step) + 1; 
     double* x_values = (double*)malloc(count * sizeof(double));

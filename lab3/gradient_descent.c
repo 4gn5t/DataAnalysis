@@ -8,7 +8,6 @@ struct LinearCoefficients {
     double b;  
 };
 
-
 struct LinearCoefficients gradient_descent(double* x_values, double* y_values, int count, 
     double learning_rate, int max_iter, double eps) {
     struct LinearCoefficients coeffs = {0.0, 0.0};
@@ -40,7 +39,7 @@ struct LinearCoefficients gradient_descent(double* x_values, double* y_values, i
         }
         current_cost /= count;
 
-        a_grad = (2.0/count) * a_grad;
+        a_grad = (2.0/ count) * a_grad;
         b_grad = (2.0/count) * b_grad;
 
         coeffs.a -= learning_rate_a * a_grad;

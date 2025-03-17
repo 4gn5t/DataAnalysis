@@ -17,6 +17,7 @@ __pycache__/
 *.pyd
 
 venv/
+myenv/
 .env/
 
 *.log

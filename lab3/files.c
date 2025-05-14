@@ -12,7 +12,6 @@ int read_values_from_file(const char* filename, double* x_values, double* y_valu
         return 1;
     }
 
-    // If we're just counting items
     if (x_values == NULL || y_values == NULL) {
         *count = 0;
         char line[256];

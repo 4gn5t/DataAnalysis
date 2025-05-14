@@ -87,6 +87,20 @@ int main() {
     printf("MSE: %.4f\n", ls_metrics.mse);
     printf("RMSE: %.4f\n\n", sqrt(ls_metrics.mse));
     printf("Determination: %.4f\n", ls_metrics.determination);
+    
+    const double original_a = -2.0;
+    const double original_b = 8.0;
+    
+    double a_error = fabs(lin_coeffs.a - original_a);
+    double b_error = fabs(lin_coeffs.b - original_b);
+    double relative_a_error = (a_error / fabs(original_a)) * 100.0;
+    double relative_b_error = (b_error / fabs(original_b)) * 100.0;
+    
+    printf("\nCOEFFICIENTS COMPARISON::\n");
+    printf("Original Coefficients: a = %.4f, b = %.4f\n", original_a, original_b);
+    printf("Absolute Error: a_error = %.4f, b_error = %.4f\n", a_error, b_error);
+    printf("Relative Error: a_error = %.2f%%, b_error = %.2f%%\n", relative_a_error, relative_b_error);
+
 
     fclose(least_squares_file);
     fclose(gradient_file);

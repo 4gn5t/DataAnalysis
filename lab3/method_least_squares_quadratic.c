@@ -132,6 +132,22 @@ int main() {
     printf("Mean Squared Error (MSE): %.4f\n", metrics.mse);
     printf("Root Mean Squared Error (RMSE): %.4f\n", sqrt(metrics.mse));
 
+    double original_a = 9.0;
+    double original_b = -8.0;
+    double original_c = 0.1;
+
+    double a_error = fabs(quad_coeffs.a - original_a);
+    double b_error = fabs(quad_coeffs.b - original_b);
+    double c_error = fabs(quad_coeffs.c - original_c);
+    double relative_a_error = (a_error / fabs(original_a)) * 100.0;
+    double relative_b_error = (b_error / fabs(original_b)) * 100.0;
+    double relative_c_error = (c_error / fabs(original_c)) * 100.0;
+    
+    printf("Original Coefficients: a = %.4f, b = %.4f\n", original_a, original_b);
+    printf("Absolute Error: a_error = %.4f, b_error = %.4f c_error = %.4f \n", a_error, b_error, c_error);
+    printf("Relative Error: \na_error = %.2f%% \n b_error = %.2f%% \n c_error = %.2f%%\n", relative_a_error, relative_b_error, relative_c_error);
+
+
 
     fclose(output);
     return 0;

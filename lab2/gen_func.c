@@ -5,7 +5,7 @@
 #include "files.h"
 
 #define MEAN 0.0 
-#define SIGMA 0.2
+#define SIGMA 0.1
 #define BUFFER_SIZE 1000
 
 double gaussian_random() {
